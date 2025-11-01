@@ -7,6 +7,7 @@ import com.sehoon.bulletinBoardJSON.model.entity.PostEntity;
 import com.sehoon.bulletinBoardJSON.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PostService {
@@ -16,6 +17,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<PostResponseDTO> showPosts() {
         List<PostEntity> findPosts = postRepository.findAll();
 
@@ -28,6 +30,7 @@ public class PostService {
         return response;
     }
 
+    @Transactional(readOnly = true)
     public PostResponseDTO showPostDetail(Long postId) {
         // TODO 예외처리가 필요하네
         PostEntity findPost = postRepository.findById(postId).orElseThrow();
@@ -37,6 +40,7 @@ public class PostService {
         return response;
     }
 
+    @Transactional
     public PostResponseDTO registerPost(PostCreateRequest request) {
         PostEntity newPost = PostEntity.createPostEntity(request.title(), request.content());
 
@@ -46,6 +50,7 @@ public class PostService {
         return response;
     }
 
+    @Transactional
     public PostResponseDTO updatePost(Long postId, PostUpdateRequest request) {
         // TODO : 예외처리가 필요하다
         PostEntity findPost = postRepository.findById(postId).orElseThrow();
