@@ -1,5 +1,6 @@
 package com.sehoon.bulletinBoardJSON.service;
 
+import com.sehoon.bulletinBoardJSON.model.dto.PostCreateRequest;
 import com.sehoon.bulletinBoardJSON.model.dto.PostResponseDTO;
 import com.sehoon.bulletinBoardJSON.model.entity.PostEntity;
 import com.sehoon.bulletinBoardJSON.repository.PostRepository;
@@ -31,6 +32,15 @@ public class PostService {
 
         PostResponseDTO response = new PostResponseDTO(findPost.getTitle(), findPost.getContent(), findPost.getCreateAt());
 
+        return response;
+    }
+
+    public PostResponseDTO registerPost(PostCreateRequest request) {
+        PostEntity newPost = PostEntity.createPostEntity(request.title(), request.content());
+
+        PostEntity insertedPost = postRepository.save(newPost);
+
+        PostResponseDTO response = new PostResponseDTO(insertedPost.getTitle(), insertedPost.getContent(), insertedPost.getCreateAt());
         return response;
     }
 }
