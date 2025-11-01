@@ -25,4 +25,12 @@ public class PostService {
 
         return response;
     }
+
+    public PostResponseDTO showPostDetail(Long postId) {
+        PostEntity findPost = postRepository.findById(postId).orElseThrow();
+
+        PostResponseDTO response = new PostResponseDTO(findPost.getTitle(), findPost.getContent(), findPost.getCreateAt());
+
+        return response;
+    }
 }

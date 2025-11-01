@@ -4,6 +4,7 @@ import com.sehoon.bulletinBoardJSON.model.dto.PostResponseDTO;
 import com.sehoon.bulletinBoardJSON.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -21,6 +22,13 @@ public class PostController {
     @GetMapping("")
     public ResponseEntity<List<PostResponseDTO>> getPosts() {
         List<PostResponseDTO> responseData = postService.showPosts();
+
+        return ResponseEntity.ok(responseData);
+    }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponseDTO> getPost(@PathVariable(name = "postId") Long postId) {
+        PostResponseDTO responseData = postService.showPostDetail(postId);
 
         return ResponseEntity.ok(responseData);
     }
