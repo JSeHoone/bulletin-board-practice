@@ -5,6 +5,7 @@ import com.sehoon.bulletinBoardJSON.model.dto.PostResponseDTO;
 import com.sehoon.bulletinBoardJSON.model.dto.PostUpdateRequest;
 import com.sehoon.bulletinBoardJSON.model.entity.PostEntity;
 import com.sehoon.bulletinBoardJSON.repository.PostRepository;
+import javax.naming.NameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,5 +60,15 @@ public class PostService {
 
         PostResponseDTO response = new PostResponseDTO(findPost.getTitle(),findPost.getContent(), findPost.getCreateAt());
         return response;
+    }
+
+    @Transactional
+    public void removePost(Long postId) {
+        // TODO : 응답이 500으로 나옴 !
+        PostEntity findPost = postRepository.findById(postId).orElseThrow( () ->
+                new IllegalArgumentException("게시물을 찾을 수 없습니다.")
+        );
+
+        postRepository.delete(findPost);
     }
 }

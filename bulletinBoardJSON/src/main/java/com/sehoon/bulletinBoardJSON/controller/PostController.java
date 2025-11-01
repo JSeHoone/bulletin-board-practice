@@ -4,7 +4,9 @@ import com.sehoon.bulletinBoardJSON.model.dto.PostCreateRequest;
 import com.sehoon.bulletinBoardJSON.model.dto.PostResponseDTO;
 import com.sehoon.bulletinBoardJSON.model.dto.PostUpdateRequest;
 import com.sehoon.bulletinBoardJSON.service.PostService;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,5 +53,12 @@ public class PostController {
         PostResponseDTO responseData = postService.updatePost(postId, request);
 
         return ResponseEntity.ok(responseData);
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable(name = "postId") Long postId) {
+        postService.removePost(postId);
+
+        return ResponseEntity.noContent().build();
     }
 }
