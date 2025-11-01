@@ -50,4 +50,10 @@ public class PostEntity {
     public LocalDateTime getCreateAt() {
         return createAt;
     }
+
+    // update Method
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

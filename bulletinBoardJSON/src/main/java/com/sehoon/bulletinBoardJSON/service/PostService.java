@@ -2,6 +2,7 @@ package com.sehoon.bulletinBoardJSON.service;
 
 import com.sehoon.bulletinBoardJSON.model.dto.PostCreateRequest;
 import com.sehoon.bulletinBoardJSON.model.dto.PostResponseDTO;
+import com.sehoon.bulletinBoardJSON.model.dto.PostUpdateRequest;
 import com.sehoon.bulletinBoardJSON.model.entity.PostEntity;
 import com.sehoon.bulletinBoardJSON.repository.PostRepository;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class PostService {
     }
 
     public PostResponseDTO showPostDetail(Long postId) {
+        // TODO 예외처리가 필요하네
         PostEntity findPost = postRepository.findById(postId).orElseThrow();
 
         PostResponseDTO response = new PostResponseDTO(findPost.getTitle(), findPost.getContent(), findPost.getCreateAt());
@@ -41,6 +43,16 @@ public class PostService {
         PostEntity insertedPost = postRepository.save(newPost);
 
         PostResponseDTO response = new PostResponseDTO(insertedPost.getTitle(), insertedPost.getContent(), insertedPost.getCreateAt());
+        return response;
+    }
+
+    public PostResponseDTO updatePost(Long postId, PostUpdateRequest request) {
+        // TODO : 예외처리가 필요하다
+        PostEntity findPost = postRepository.findById(postId).orElseThrow();
+
+        findPost.update(request.title(), request.content());
+
+        PostResponseDTO response = new PostResponseDTO(findPost.getTitle(),findPost.getContent(), findPost.getCreateAt());
         return response;
     }
 }
