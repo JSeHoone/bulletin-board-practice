@@ -35,7 +35,7 @@ public class PostEntity {
     }
 
     // Factory Method
-    public PostEntity createPostEntity(String title, String content) {
+    public static PostEntity createPostEntity(String title, String content) {
         return new PostEntity(title, content);
     }
 
