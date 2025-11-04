@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <tr th:each="post : ${posts}">
+        </br>
+        <td th:text="${post.title}"></td>
+        <input value="디테일 보기"
+               type="button"
+               th:onclick="|location.href='/posts/detail?id=${post.id}'|">
+    </tr>
+
+    </br>
+    <input type="button" onclick="location.href='/posts/createPostView'" value="포스트 생성하기">
+</body>
+</html>
