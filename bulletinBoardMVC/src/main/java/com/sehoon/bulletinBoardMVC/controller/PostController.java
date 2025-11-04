@@ -64,15 +64,16 @@ public class PostController {
     public String modifyPostView(@RequestParam("post-id") Long postId, Model model) {
         PostResponseDTO post = postService.showPostDetail(postId);
         model.addAttribute("post", post);
+        System.out.println(post);
         return "posts/modify";
     }
 
     @PostMapping("/modify")
     public String modifyPost(@RequestAttribute("userId") Long userId,
-                             @RequestParam Long postId,
-                             @RequestParam String title,
-                             @RequestParam String content) {
-        postService.modifyPost(userId, postId, title, content);
+                             @RequestParam(name = "post-id") String postId,
+                             @RequestParam(name = "title") String title,
+                             @RequestParam(name = "content") String content) {
+        postService.modifyPost(userId, Long.valueOf(postId), title, content);
 
         return "redirect:/posts/detail?id="+postId;
     }

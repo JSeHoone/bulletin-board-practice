@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>포스트 생성하기</h1>
+<h1>게시물 수정하기</h1>
     <form action="/posts/modify" method="post">
         제목 :
         </br>
@@ -16,7 +16,7 @@
 
         컨텐츠 내용 :
         </br>
-        <textarea name="content" rows="4" cols="50" th:value="${post.content}"/></textarea>
+        <textarea name="content" rows="4" cols="50" th:text="${post.content}"/></textarea>
 
         </br>
         <input type="hidden" name="post-id" th:value="${post.id}"/>
